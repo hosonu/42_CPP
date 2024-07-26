@@ -39,5 +39,9 @@ void	Contact::display() const {
 }
 
 std::string Contact::getDisplayString() const {
-		return (truncate(firstname) + "|" + truncate(lastname) + "|" + truncate(nickname));
+	std::ostringstream oss;
+	oss << std::setw(10) << truncate(firstname) << "|"
+		<< std::setw(10) << truncate(lastname) << "|"
+		<< std::setw(10) << truncate(nickname) << "|";
+	return oss.str();
 }

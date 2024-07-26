@@ -5,6 +5,8 @@
 # include <string>
 # include <iomanip>
 # include <limits>
+# include <sstream>
+# include <cstdlib>
 
 class Contact {
 	private:

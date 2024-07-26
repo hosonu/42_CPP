@@ -13,6 +13,7 @@ class PhoneBook	{
 	public:
 		PhoneBook();
 		~PhoneBook();
+		std::string getValidInput(const std::string& prompt) const;
 		void addContact();
 		void searchContacts() const;
 };
