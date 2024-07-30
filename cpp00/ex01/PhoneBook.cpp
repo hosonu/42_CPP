@@ -11,7 +11,6 @@ PhoneBook::~PhoneBook() {
 std::string PhoneBook::getValidInput(const std::string& prompt) const {
 	std::string input;
 
-	
 	while (true) {
 		std::cout << prompt;
 		if (!std::getline(std::cin, input)) {

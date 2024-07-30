@@ -1,6 +1,6 @@
 #include "Sed.hpp"
 
-Sed::Sed(std::string filename) : inFile(filename){
+Sed::Sed(std::string& filename) : inFile(filename){
 	this->outFile = this->inFile + ".replace";
 }
 
@@ -8,13 +8,13 @@ Sed::~Sed() {
 }
 
 void	Sed::replace(std::string s1, std::string s2){
-	std::ifstream inputFile(this->inFile);
+	std::ifstream inputFile(inFile.c_str());
 	if(!inputFile.is_open()) {
 		std::cerr << "Error: Unable to open input file." << std::endl;
 		return ;
 	}
 
-	std::ofstream outputFile(this->outFile);
+	std::ofstream outputFile(outFile.c_str());
 	if(!outputFile.is_open()) {
 		std::cerr << "Error: Unable to open output file." << std::endl;
 		inputFile.close();
