@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 TARGET = fragtrap
 
-SOURCES = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SOURCES = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 
 $(TARGET): $(SOURCES)
 	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(TARGET)
