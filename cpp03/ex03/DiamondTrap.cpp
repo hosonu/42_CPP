@@ -21,7 +21,7 @@ DiamondTrap::DiamondTrap(const DiamondTrap &src) : ClapTrap(src), ScavTrap(src),
 	std::cout << "DiamondTrap copy cnostructor called for " << this->name << std::endl;
 }
 
-DiamondTrap	&operator=(const DiamondTrap &rhs) {
+DiamondTrap	&DiamondTrap::operator=(const DiamondTrap &rhs) {
 	if (this != &rhs) {
 		ClapTrap::operator=(rhs);
 		this->name = rhs.name;
