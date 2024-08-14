@@ -1,6 +1,6 @@
 # include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), ScavTrap(), FragTrap() {
+DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap() {
 	this->name = "Default";
 	this->hitPoints = FragTrap::hitPoints;
 	this->energyPoints = ScavTrap::energyPoints;
