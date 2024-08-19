@@ -6,10 +6,15 @@ TARGET = phonebook
 
 SOURCES = main.cpp PhoneBook.cpp Contact.cpp
 
-$(TARGET): $(SOURCES)
-	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(TARGET)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
 
 clean:
+	rm -f $(OBJECTS)
+
+fclean: clean
 	rm -f $(TARGET)
 
 .PHONY: clean
