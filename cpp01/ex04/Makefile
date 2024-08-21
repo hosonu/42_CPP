@@ -8,6 +8,8 @@ SOURCES = main.cpp Sed.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
+all: $(TARGET)
+
 $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
 
