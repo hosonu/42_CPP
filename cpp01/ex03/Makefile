@@ -8,10 +8,22 @@ TARGET = Zombie
 
 SOURCES = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 
-$(TARGET): $(SOURCES)
-	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(TARGET)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	rm -f $(OBJECTS)
+
+fclean: clean
 	rm -f $(TARGET)
 
-.PHONY: clean
+re: fclean $(TARGET)
+
+.PHONY: all clean clean re
