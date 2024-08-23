@@ -6,10 +6,22 @@ TARGET = fragtrap
 
 SOURCES = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 
-$(TARGET): $(SOURCES)
-	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(TARGET)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+
+%.o: %.cpp
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 clean:
+	rm -f $(OBJECTS)
+
+fclean: clean
 	rm -f $(TARGET)
 
-.PHONY: clean
+re: fclean $(TARGET)
+
+.PHONY: all clean fclean re

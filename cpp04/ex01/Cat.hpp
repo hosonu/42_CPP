@@ -6,13 +6,12 @@
 
 class Cat : public	Animal {
 	private:
-		Brain *_brain;
+		Brain	*brain;
 	public :
 		Cat();
-		~Cat();
 		Cat(const Cat &src);
-		Cat& operator=(const Cat &rhs);
-		
+		Cat &operator=(const Cat &rhs);
+		~Cat();
 		void	makeSound() const ;
 };
 

@@ -1,22 +1,40 @@
-#include "Animal.hpp"
+#include "Aanimal.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
 
+#define ANIMAL_COUNT 10
+
 int main()
 {
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	
-	delete j;
-	delete i;
-	
+	Aanimal* animals[ANIMAL_COUNT];
 
-	const Animal* animals[4] = {new Dog(), new Dog(), new Cat(), new Cat()};
-	for(int i = 0; i < 4; i++)
+	for (int i = 0; i < ANIMAL_COUNT; i++) {
+		if (i < ANIMAL_COUNT / 2) {
+			std::cout << "Creating Dog " << i << std::endl;
+			animals[i] = new Dog();
+			animals[i]->makeSound();
+		}
+		else {
+			std::cout << "Creating Cat " << i << std::endl;
+			animals[i] = new Cat();
+			animals[i]->makeSound();
+		}
+    }
+
+	std::cout << "\nTesting deep copy:" << std::endl;
+	Dog* originalDog = new Dog();
+	Dog* copiedDog = new Dog(*originalDog);
+	delete originalDog;
+	std::cout << "Copied Dog should still have its Brain after original is deleted." << std::endl;
+    delete copiedDog;
+
+	std::cout << "\nDeleting all animals:" << std::endl;
+	for (int i = 0; i < ANIMAL_COUNT; i++) {
+		std::cout << "Deleting animal " << i << std::endl;
 		delete animals[i];
-
+	}
 
 	return 0;
 }

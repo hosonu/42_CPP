@@ -4,12 +4,24 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 TARGET = animal
 
-FILES = main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
+SOURCES = main.cpp Aanimal.cpp Brain.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 
-$(TARGET): $(FILES)
-	$(CXX) $(CXXFLAGS) $(FILES) -o $(TARGET)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+
+%.o: %.cpp
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 clean:
+	rm -f $(OBJECTS)
+
+fclean: clean
 	rm -f $(TARGET)
 
-.PHONY: clean
+re: fclean $(TARGET)
+
+.PHONY: all clean fclean re

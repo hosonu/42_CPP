@@ -6,13 +6,15 @@ TARGET = a.out
 
 SOURCES = main.cpp Fixed.cpp
 
+OBJECTS = $(SOURCES:.cpp=.o)
+
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJECTS)
@@ -22,4 +24,4 @@ fclean: clean
 
 re: fclean $(TARGET)
 
-.PHONY: all clean clean re
+.PHONY: all clean fclean re

@@ -21,19 +21,19 @@ void	Sed::replace(std::string s1, std::string s2){
 		return ;
 	}
 	
-	std::string line;
-	while (std::getline(inputFile, line)) {
-		size_t pos = 0;
-		while ((pos = line.find(s1, pos)) != std::string::npos) {
-			line = line.substr(0, pos) + s2 + line.substr(pos + s1.length());
-			pos += s2.length();
-		}
-		outputFile << line << std::endl;
-
-		inputFile.close();
-		outputFile.close();
-
-		std::cout << "Replacement complete!" << outFile << std::endl;
+	std::stringstream buffer;
+	buffer << inputFile.rdbuf();
+	std::string line = buffer.str();
+	size_t pos = 0;
+	while ((pos = line.find(s1, pos)) != std::string::npos) {
+		line = line.substr(0, pos) + s2 + line.substr(pos + s1.length());
+		pos += s2.length();
 	}
-	
+	outputFile << line;
+
+	inputFile.close();
+	outputFile.close();
+
+	std::cout << "Replacement complete!" << outFile << std::endl;
+
 }
