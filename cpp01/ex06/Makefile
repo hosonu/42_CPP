@@ -2,7 +2,7 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-TARGET = Harlfilter
+TARGET = harlFilter
 
 SOURCES = main.cpp Harl.cpp
 

@@ -2,7 +2,7 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-TARGET = Harl
+TARGET = harl
 
 SOURCES = main.cpp Harl.cpp
 
