@@ -36,6 +36,7 @@ void	Harl::complain( std::string level) {
 		case 2:
 		case 3:
 			(this->*functions[i])();
+			break;
 		default:
 			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 			break;

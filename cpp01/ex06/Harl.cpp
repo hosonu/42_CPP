@@ -38,15 +38,12 @@ void	Harl::complain( std::string level) {
 		case 0:
 			(this->*functions[0])();
 			std::cout << std::endl;
-			// [[fallthrough]];
 		case 1:
 			(this->*functions[1])();
 			std::cout << std::endl;
-			// [[fallthrough]];
 		case 2:
 			(this->*functions[2])();
 			std::cout << std::endl;
-			// [[fallthrough]];
 		case 3:
 			(this->*functions[3])();
 			std::cout << std::endl;
