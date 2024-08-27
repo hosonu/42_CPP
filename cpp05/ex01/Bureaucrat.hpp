@@ -11,6 +11,7 @@ class Bureaucrat {
 
 	public:
 		Bureaucrat();
+		Bureaucrat(const std::string name, int grade);
 		~Bureaucrat();
 		Bureaucrat(const Bureaucrat &src);
 		Bureaucrat& operator=(const Bureaucrat &rhs);
@@ -24,7 +25,8 @@ class Bureaucrat {
 
 		class GradeTooHighException : public std::exception {};
 		class GradeTooLowException : public std::exception {};
-
 };
+
+std::ostream& operator<<(std::ostream &out, const Bureaucrat &src);
 
 #endif
