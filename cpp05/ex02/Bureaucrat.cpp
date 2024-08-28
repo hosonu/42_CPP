@@ -49,7 +49,7 @@ void	Bureaucrat::decremnetGrade() {
 	grade_++;
 }
 
-void	Bureaucrat::signForm(Form &f) {
+void	Bureaucrat::signForm(AForm &f) {
 	try
 	{
 		f.beSigned(*this);

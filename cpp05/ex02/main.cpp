@@ -14,7 +14,7 @@ int main() {
 
 		b.signForm(f1);
 		b.signForm(f2);
-			
+
 		std::cout << f1 << std::endl;
 		std::cout << f2 << std::endl;
 	}
