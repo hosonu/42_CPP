@@ -24,20 +24,24 @@ Fixed& Fixed::operator=(const Fixed &rhs) {
 	return *this;
 }
 
-Fixed Fixed::operator+(Fixed const &rhs) const {
-	return Fixed(this->toFloat() + rhs.toFloat());
+Fixed &Fixed::operator+(Fixed const &rhs) {
+	this->value += rhs.getRawBits();
+	return *this;
 }
 
-Fixed Fixed::operator-(Fixed const &rhs) const {
-	return Fixed(this->toFloat() - rhs.toFloat());
+Fixed& Fixed::operator-(Fixed const &rhs) {
+	this->value -= rhs.getRawBits();
+	return *this;
 }
 
-Fixed Fixed::operator*(Fixed const &rhs) const {
-	return Fixed(this->toFloat() * rhs.toFloat());
+Fixed& Fixed::operator*(Fixed const &rhs) {
+	this->value *= rhs.getRawBits() >> fractionalBits;
+	return *this;
 }
 
-Fixed Fixed::operator/(Fixed const &rhs) const {
-	return Fixed(this->toFloat() / rhs.toFloat());
+Fixed& Fixed::operator/(Fixed const &rhs) {
+	this->value /= rhs.getRawBits() << fractionalBits;
+	return *this;
 }
 
 bool Fixed::operator<(Fixed const &rhs) const {
