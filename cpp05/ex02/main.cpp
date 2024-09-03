@@ -34,7 +34,7 @@ int main() {
 		midRank.executeForm(ppf);
 
 		std::cout << "\n--------------low------------" << std::endl;
-		//low rank test
+		// //low rank test
 		lowRank.signForm(scf);
 		lowRank.executeForm(scf);
 		lowRank.signForm(rrf);

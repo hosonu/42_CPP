@@ -44,7 +44,7 @@ void AForm::beSigned(Bureaucrat &b) {
 	if (b.getGrade() <= this->gradetoSign_) {
 		this->is_sign = true;
 	} else {
-		//main.cpp de instance化を最初に行うことで、is_signがtrueのままになるので、ここで代入を行う
+		//main.cppでそれぞれのAFormのinstance化を最初に行うことで、is_signがtrueのままになるので、ここで代入を行う
 		this->is_sign = false;
 		throw GradeTooLowException();
 	}

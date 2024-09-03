@@ -13,7 +13,6 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : name_(name), grade_(
 
 
 Bureaucrat::~Bureaucrat() {
-	std::cout << name_ << " : destrcutor called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &src) {
@@ -24,7 +23,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &rhs) {
 	if (this != &rhs)
 	{
 		this->grade_ = rhs.getGrade();
-		std::cout << "Bureacurat assignmention operator called" << std::endl;
 	}
 	return *this;
 }
@@ -53,6 +51,6 @@ void	Bureaucrat::decremnetGrade() {
 
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat &src) {
-	out << src.getName() << ", bureaucrat grade " << src.getGrade();
+	out << src.getName() << ", bureaucrat grade " << src.getGrade() << ".";
 	return out;
 }

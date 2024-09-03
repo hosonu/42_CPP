@@ -14,12 +14,12 @@ ClapTrap::ClapTrap(const ClapTrap &src) : name(src.name), hitPoints(src.hitPoint
 
 ClapTrap	&ClapTrap::operator=(const ClapTrap &rhs) {
     std::cout << "ClapTrap copy assignment operator called" << std::endl;
-    if (this != &rhs) {
-        this->name = rhs.name;
-        this->hitPoints = rhs.hitPoints;
-        this->energyPoints = rhs.energyPoints;
-        this->attackDamage = rhs.attackDamage;
-    }
+	if (this != &rhs) {
+		this->name = rhs.name;
+		this->hitPoints = rhs.hitPoints;
+		this->energyPoints = rhs.energyPoints;
+		this->attackDamage = rhs.attackDamage;
+	}
     return *this;
 }
 

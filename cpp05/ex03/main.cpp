@@ -3,49 +3,34 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main() {
 	try
 	{
-		Bureaucrat highRank("HighRank", 1);
-        Bureaucrat midRank("MidRank", 71);
-        Bureaucrat lowRank("LowRank", 150);
+		Intern	intern;
+		Bureaucrat b("Hoyuki", 50);
 
-		ShrubberyCreationForm scf("Shrubbery");
-        RobotomyRequestForm rrf("Robotomy");
-        PresidentialPardonForm ppf("Pardon");
-
-		std::cout << "--------------high------------" << std::endl;
-		//high rank test
-		highRank.signForm(scf);
-		highRank.executeForm(scf);
-		highRank.signForm(rrf);
-		highRank.executeForm(rrf);
-		highRank.signForm(ppf);
-		highRank.executeForm(ppf);
-
-		std::cout << "\n--------------mid------------" << std::endl;
-		//mid rank test
-		midRank.signForm(scf);
-		midRank.executeForm(scf);
-		midRank.signForm(rrf);
-		midRank.executeForm(rrf);
-		midRank.signForm(ppf);
-		midRank.executeForm(ppf);
-
-		std::cout << "\n--------------low------------" << std::endl;
-		//low rank test
-		lowRank.signForm(scf);
-		lowRank.executeForm(scf);
-		lowRank.signForm(rrf);
-		lowRank.executeForm(rrf);
-		lowRank.signForm(ppf);
-		lowRank.executeForm(ppf);
-
-
-		std::cout << "\nTesting execution of unsigned forms:" << std::endl;
-        ShrubberyCreationForm unsignedScf("UnsignedShrubbery");
-        highRank.executeForm(unsignedScf);
+		AForm* form1 = intern.makeForm("PresidentialPardonForm", "Target1");
+		AForm* form2 = intern.makeForm("RobotomyRequestForm", "Target2");
+		AForm* form3 = intern.makeForm("ShrubberyCreationForm", "Target3");
+		if (form1) {
+			b.signForm(*form1);
+			b.executeForm(*form1);
+			delete form1;
+		}
+        if (form2) {
+			b.signForm(*form2);
+			b.executeForm(*form2);
+			delete form2;
+		}
+		if (form3) {
+			b.signForm(*form3);
+			b.executeForm(*form3);
+			delete form3;
+		}
+		AForm* form4 = intern.makeForm("UnknownForm", "Target4");
+        if (!form4) {}
 	}
 	catch (std::exception &e)
 	{

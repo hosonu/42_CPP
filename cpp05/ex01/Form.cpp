@@ -19,7 +19,6 @@ Form::Form(const Form &src) : name_(src.name_), is_sign(src.is_sign), gradetoSig
 Form& Form::operator=(const Form &rhs) {
 	if (this != &rhs) {
 		this->is_sign = rhs.getSigned();
-		std::cout << "Just subtitude <is_sign>" << std::endl;
 	}
 	return *this;
 }
