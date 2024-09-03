@@ -10,7 +10,8 @@ class Bureaucrat {
 		int	grade_;
 
 	public:
-		Bureaucrat(const std::string name = "", int grade = 0);
+		Bureaucrat();
+		Bureaucrat(const std::string name, int grade);
 		~Bureaucrat();
 		Bureaucrat(const Bureaucrat &src);
 		Bureaucrat& operator=(const Bureaucrat &rhs);
@@ -21,8 +22,18 @@ class Bureaucrat {
 		void	incrementGrade();
 		void	decremnetGrade();
 
-		class GradeTooHighException : public std::exception {};
-		class GradeTooLowException : public std::exception {};
+		class GradeTooHighException : public std::exception {
+			public:
+				const char* what() const throw() {
+					return "Grade is too high for this form";
+				}
+		};
+		class GradeTooLowException : public std::exception {
+			public:
+				const char* what() const throw() {
+					return "Grade is too low for this form";
+				}
+		};
 };
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat &src);
