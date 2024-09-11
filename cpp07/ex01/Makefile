@@ -1,26 +1,33 @@
 CXX = c++
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS = main.cpp
+
+OBJ_DIR = build/obj
+DEP_DIR = build/dep
+OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
+DEPS = $(SRCS:%.cpp=$(DEP_DIR)/%.d)
 
 TARGET = program
 
-SOURCES = main.cpp
-
-OBJECTS = $(SOURCES:.cpp=.o)
-
 all: $(TARGET)
 
-$(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-%.o: %.cpp
-	$(CC) $(CXXFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR) $(DEP_DIR)
+	$(CXX) $(CXXFLAGS) -MMD -MF $(DEP_DIR)/$*.d -c $< -o $@
+
+$(OBJ_DIR) $(DEP_DIR):
+	mkdir -p $@
+
+-include $(DEPS)
 
 clean:
-	rm -f $(OBJECTS)
+	rm -rf build
 
 fclean: clean
-	rm -f $(TARGET)
+	rm -rf $(TARGET)
 
 re: fclean $(TARGET)
 
