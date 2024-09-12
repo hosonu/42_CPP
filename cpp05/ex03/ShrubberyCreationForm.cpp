@@ -32,7 +32,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
 			// return ;
 			//is it not necessary to throw exception???
 			throw std::runtime_error("Unable to open output file: " + filename);
-	} 
+	}
 
 	//print Ascii tree here to file
 	file << "    /\\\n";
