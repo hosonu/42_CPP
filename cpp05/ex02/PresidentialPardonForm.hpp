@@ -8,7 +8,8 @@ class PresidentialPardonForm : public AForm {
 	private :
 		std::string target_;
 	public :
-		PresidentialPardonForm(std::string target = "");
+		PresidentialPardonForm();
+		PresidentialPardonForm(std::string target);
 		~PresidentialPardonForm();
 		PresidentialPardonForm(const PresidentialPardonForm &src);
 		PresidentialPardonForm& operator=(const PresidentialPardonForm &rhs);

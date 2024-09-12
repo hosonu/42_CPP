@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <ctime>
 
+RobotomyRequestForm::RobotomyRequestForm()
+: AForm("RobotomyRequestForm", 72, 45), target_("target") {
+}
+
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
 : AForm("RobotomyRequestForm", 72, 45), target_(target) {
 }
