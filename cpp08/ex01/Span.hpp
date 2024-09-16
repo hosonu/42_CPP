@@ -3,6 +3,11 @@
 
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
+#include <limits>
+#include <numeric>
+#include <iostream>
+
 
 class Span {
 	private:
@@ -14,18 +19,18 @@ class Span {
 		~Span();
 
 		void	addNumber(int num);
-		int	shortestSpan() const;
-		int	longestSpan() const;
+		unsigned int	shortestSpan();
+		unsigned int	longestSpan();
 
 		class FullSpanException : public std::exception {
 			public:
 				virtual const char* what() const throw();
-		}
+		};
 
 		class InsufficientElementsException : public std::exception {
    			public:
         		virtual const char* what() const throw();
-		}
+		};
 
 };
 
