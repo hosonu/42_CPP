@@ -15,6 +15,9 @@ class Span {
 		std::vector<int> numbers;
 
 	public:
+		Span();
+		Span(const Span &src);
+		Span& operator=(const Span &rhs);
 		Span(unsigned int N);
 		~Span();
 

@@ -1,7 +1,22 @@
 #include "Span.hpp"
 
+Span::Span() : N(0) {
+	numbers.reserve(0);
+}
+
 Span::Span(unsigned int N) : N(N) {
 	numbers.reserve(N);
+}
+
+Span::Span(const Span &src) : N(src.N), numbers(src.numbers) {
+}
+
+Span& Span::operator=(const Span &rhs) {
+	if (this != &rhs) {
+		this->N = rhs.N;
+		this->numbers = rhs.numbers;
+	}
+	return *this;
 }
 
 Span::~Span() {}
