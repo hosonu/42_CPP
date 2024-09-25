@@ -19,7 +19,6 @@ class MutantStack : public std::stack<T, Container> {
 		typedef typename Container::iterator iterator;
 		typedef typename Container::reverse_iterator riterator;
 
-
 		iterator begin() {return this->c.begin();}
 		iterator end() {return this->c.end();}
 		riterator rbegin() {return this->c.rbegin();}

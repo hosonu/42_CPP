@@ -26,6 +26,9 @@ $(OBJ_DIR) $(DEP_DIR):
 test:
 	./test.sh
 
+test_easyfind: easyfind.cpp
+	$(CXX) -o easyfind easyfind.cpp -lgtest -lpthread
+
 clean:
 	rm -rf build
 

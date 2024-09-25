@@ -33,10 +33,8 @@ unsigned int	Span::shortestSpan() {
 	}
 
 	std::sort(numbers.begin(), numbers.end());
-	std::vector<unsigned int> differences(numbers.size() - 1);
+	std::vector<unsigned int> differences(numbers.size());
 	std::adjacent_difference(numbers.begin(), numbers.end(), differences.begin());
-	// for(int i = 0; i < 2; i++)
-	// 	std::cout << differences[i] << std::endl;
 	return *std::min_element(differences.begin() + 1, differences.end());
 }
 
