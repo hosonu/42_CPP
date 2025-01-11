@@ -2,20 +2,24 @@
 
 void Validater::validate_argument(int argc, char *argv[]) {
 	if (argc != 2)
-		throw std::runtime_error("Error: could not open file.");
+		throw std::invalid_argument("Error: could not open file.");
 	
 	std::string file_path = argv[1];
 	if (file_path.empty()) {
-		throw std::runtime_error("Error: could not open file.");
+		throw std::invalid_argument("Error: could not open file.");
 	}
 
 	std::ifstream file(file_path.c_str());
 	if (!file.is_open()) {
-		throw std::runtime_error("Error: could not open file.");
+		throw std::invalid_argument("Error: could not open file.");
+	}
+
+	if (file.peek() == std::ifstream::traits_type::eof()) {
+		throw std::invalid_argument("Error: " + file_path +" is empty");
 	}
 
 	//if (file_path.find(".txt") == std::string::npos) {
-	//	throw std::runtime_error("Error: could not open file.");
+	//	throw std::invalid_argument("Error: could not open file.");
 	//}
 }
 
