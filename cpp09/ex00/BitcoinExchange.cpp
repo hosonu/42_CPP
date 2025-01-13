@@ -1,53 +1,73 @@
 #include "BitcoinExchange.hpp"
 
 
-void	BitcoinExchange::get_input_file_data(const char *file) {
-	this->file_path = file;
+void	BitcoinExchange::parse_input_file(const char *file) {
 	std::ifstream file_stream(file);
 	std::stringstream file_data_stream;
 	file_data_stream << file_stream.rdbuf();
+	std::string	file_data = file_data_stream.str();
 
-	
+	#ifdef DEBUG
+	std::cout << file_data << std::flush;
+	#endif
+
 }
 
-void	BitcoinExchange::set_file_path(const std::string path) {
-	this->file_path = path;
+void	BitcoinExchange::set_input_file_path(const std::string path) {
+	this->input_file_path = path;
 }
 
-void	BitcoinExchange::set_file_data(const std::map<std::string, long long> data) {
-	this->file_data = data;
+void	BitcoinExchange::set_csv_file_path(const std::string path) {
+	this->csv_file_path = path;
 }
 
-const std::string& BitcoinExchange::get_file_path() const {
-	return this->file_path;
+void	BitcoinExchange::set_input_file_data(const std::map<std::string, long long> data) {
+	this->input_file_data = data;
 }
 
-std::string& BitcoinExchange::get_file_path() {
-	return this->file_path;
+void	BitcoinExchange::set_csv_file_data(const std::map<std::string, long long> data) {
+	this->csv_file_data = data;
 }
 
-const std::map<std::string, long long>& BitcoinExchange::get_file_data() const {
-	return this->file_data;
+const std::string& BitcoinExchange::get_input_file_path() const {
+	return this->input_file_path;
 }
 
-std::map<std::string, long long> BitcoinExchange::get_file_data() {
-	return this->file_data;
+const std::string& BitcoinExchange::get_csv_file_path() const {
+	return this->csv_file_path;
 }
 
-BitcoinExchange::BitcoinExchange() : file_path(""), file_data("", 0) {
+const std::map<std::string, long long>& BitcoinExchange::get_input_file_data() const {
+	return this->input_file_data;
+}
+
+const std::map<std::string, long long>& BitcoinExchange::get_csv_file_data() const {
+	return this->csv_file_data;
+}
+
+BitcoinExchange::BitcoinExchange()
+: input_file_path("")
+, csv_file_path("")
+, input_file_data()
+,  csv_file_data() {
 }
 
 BitcoinExchange::~BitcoinExchange() {
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
-: file_path(other.file_path), file_data(other.file_data) {
+: input_file_path(other.input_file_path)
+, csv_file_path(other.csv_file_path)
+, input_file_data(other.input_file_data)
+,  csv_file_data(other.csv_file_data) {
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 	if (this != &other) {
-		this->file_path = other.file_path;
-		this->file_data = other.file_data;
+		this->input_file_path = other.input_file_path;
+		this->csv_file_path = other.csv_file_path;
+		this->input_file_data = other.input_file_data;
+		this->csv_file_data = other.csv_file_data;
 	}
-	return *this
+	return *this;
 }

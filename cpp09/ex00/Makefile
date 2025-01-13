@@ -32,15 +32,15 @@ $(NAME): $(OBJS)
 -include $(DEPS)
 
 clean:
-	rm -rf $(OBJ_DIR)
-	rm -rf $(DEP_DIR)
+	@rm -rf $(OBJ_DIR)
+	@rm -rf $(DEP_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
-debug:
-	make DEBUG=1
+debug: fclean
+	@make DEBUG=1
 
 .PHONY: all clean fclean re debug

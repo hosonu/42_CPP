@@ -3,10 +3,10 @@
 
 int main(int argc, char *argv[])
 {
-	//BitcoinExchange btc;
+	BitcoinExchange	btc; 
 	try {
 		Validater::validate_argument(argc, argv);
-		//btc.get_input_file_data(argv[1]);
+		btc.parse_input_file(argv[1]);
 		//btc.validate_input_file_data();
 		//btc.calculate_value_base_in_csv_data();
 		//btc.output_results();
