@@ -9,6 +9,7 @@ class Validater
 {
 	public:
 		static void validate_argument(int argc, char *argv[]);
+		static void validate_csv_data(const std::string path);
 	
 	private:
 		Validater();
