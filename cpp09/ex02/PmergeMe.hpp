@@ -17,8 +17,9 @@ void	insertIntoMainChain(Container& mainChain, typename Container::value_type el
 template <typename Container>
 void	mergeInsertSort(Container& container) {
 	int n = container.size();
+
 	if (n <= 1) {
-		return;/*-----------------------*/
+		return;
 	}
 
 	Container largeElements, smallElements;
