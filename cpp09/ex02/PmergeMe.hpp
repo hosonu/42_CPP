@@ -7,11 +7,90 @@
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
+
+extern int	cnt;
+
+struct ComparisonCounter {
+    int& counter;
+    ComparisonCounter(int& c) : counter(c) {}
+    bool operator()(int a, int b) {
+        ++counter;
+        return a < b;
+    }
+};
+
+std::vector<size_t> generateJacobsthalIndices(size_t size);
 
 template <typename Container>
-void	insertIntoMainChain(Container& mainChain, typename Container::value_type element) {
-	typename Container::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), element);
-	mainChain.insert(pos, element);
+void	createSortedPairs(const Container& input, Container& largeElements, Container& smallElements) {
+	for (size_t i = 0; i < input.size() / 2; ++i) {
+		if (input[2 * i] > input[2 * i + 1]) {
+			largeElements.push_back(input[2 * i]);
+			smallElements.push_back(input[2 * i + 1]);
+			++cnt;
+		} else {
+			largeElements.push_back(input[2 * i + 1]);
+			smallElements.push_back(input[2 * i]);
+			++cnt;
+		}
+	}
+	#ifdef DEBUG
+		std::cout << "After createSortedPairs cnt: " << cnt << std::endl;
+	#endif
+
+	if (input.size() % 2 != 0) {
+		smallElements.push_back(input[input.size() - 1]);
+	}
+}
+
+template <typename Container>
+void reorderSmallElements(Container& smallElements, const Container& largeElements, const Container& originalContainer) {
+    Container tempSmall = smallElements;
+	Container resultSmall = smallElements;
+    for (size_t i = 0; i < largeElements.size(); ++i) {
+        typename Container::const_iterator pos = std::find(originalContainer.begin(), originalContainer.end(), largeElements[i]);
+        if (pos != originalContainer.end()) {
+			size_t originalIndex = pos - originalContainer.begin();
+			resultSmall[i] = tempSmall[originalIndex / 2];
+
+		}
+    }
+	smallElements = resultSmall;
+}
+
+template <typename Container>
+void insertFirstElement(Container& mainChain, const typename Container::value_type& element) {
+    typename Container::iterator pos = mainChain.begin();
+    mainChain.insert(pos, element);
+}
+
+template <typename Container>
+void	insertGroupElements(Container& mainChain, Container& largeElements, Container& smallElements, size_t start, size_t end) {
+	for (size_t j = end; j > start; --j) {
+		if (j - 1 >= smallElements.size()) {
+			continue;
+		}
+
+		typename Container::iterator pairPos = std::find(
+			mainChain.begin(), mainChain.end(), largeElements[j - 1]
+		);
+		#ifdef DEBUG
+			std::cout << "mainChain: ";
+			for (typename Container::const_iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
+				std::cout << *it << " ";
+			}
+			std::cout << std::endl;
+			std::cout << "pairPos - 1: " << *(pairPos - 1) << std::endl;
+			std::cout << "smallElements[j - 1]: " << smallElements[j - 1] << std::endl;
+		#endif
+
+		typename Container::iterator insertPos = std::lower_bound(
+			mainChain.begin(), pairPos -1 , smallElements[j - 1], ComparisonCounter(cnt)
+		);
+
+		mainChain.insert(insertPos, smallElements[j - 1]);
+	}
 }
 
 template <typename Container>
@@ -23,26 +102,43 @@ void	mergeInsertSort(Container& container) {
 	}
 
 	Container largeElements, smallElements;
-	for (int i = 0; i < n / 2; ++i) {
-		if (container[2 * i] > container[2 * i + 1]) {
-			largeElements.push_back(container[2 * i]);
-			smallElements.push_back(container[2 * i + 1]);
-		} else {
-			largeElements.push_back(container[2 * i + 1]);
-			smallElements.push_back(container[2 * i]);
-		}
-	}
-
-	if (n % 2 != 0) {
-		largeElements.push_back(container.back());
-	}
+	createSortedPairs(container, largeElements, smallElements);
 
 	mergeInsertSort(largeElements);
-
 	Container mainChain = largeElements;
+	
+	reorderSmallElements(smallElements, largeElements, container);
 
-	for (size_t i = 0; i < smallElements.size(); ++i) {
-		insertIntoMainChain(mainChain, smallElements[i]);
+	if (!smallElements.empty()) {
+		insertFirstElement(mainChain, smallElements[0]);
+	}
+
+	std::vector<size_t> jacobsthalIndices = generateJacobsthalIndices(smallElements.size());
+
+	for (size_t i = 0; i < jacobsthalIndices.size(); ++i) {
+		size_t start = 0;
+		for (size_t k = 0; k < i; ++k) {
+			start += jacobsthalIndices[k];
+		}
+		if (start == 0) {
+			start = 1;
+		}
+
+		size_t end = 0;
+		for (size_t k = 0; k <= i; ++k) {
+			end += jacobsthalIndices[k];
+		}
+
+		#ifdef DEBUG
+			std::cout << "start: " << start << ", end: " << end << std::endl;
+			std::cout << "small elements: ";
+			for (typename Container::const_iterator it = smallElements.begin(); it != smallElements.end(); ++it) {
+				std::cout << *it << " ";
+			}
+			std::cout << std::endl;
+		#endif
+
+		insertGroupElements(mainChain, largeElements, smallElements, start, end);
 	}
 
 	container = mainChain;
@@ -75,5 +171,6 @@ class PmergeMe {
 		void	mergeInsertSortDeque();
 		void	printContainers();
 };
+
 
 #endif
