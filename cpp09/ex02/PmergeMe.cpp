@@ -72,7 +72,7 @@ void	PmergeMe::mergeInsertSortDeque() {
 
 void	PmergeMe::printContainers() {
 	std::cout << "After: ";
-	printContainer(this->_vector);
+	//printContainer(this->_vector);
 	printContainer(this->_deque);
 	double	time_vector = static_cast<double>(this->_end_vector - this->_start_vector) / CLOCKS_PER_SEC * 1000000;
 	double	time_deque = static_cast<double>(this->_end_deque - this->_start_deque) / CLOCKS_PER_SEC * 1000000;
@@ -84,6 +84,15 @@ void	PmergeMe::printContainers() {
 std::vector<size_t> generateJacobsthalIndices(size_t size) {
 	std::vector<size_t> indices;
 	size_t prev2 = 0, prev1 = 1;
+
+	#ifdef DEBUG
+		std::cout << "size: " << size << std::endl;
+	#endif
+
+	if (size == 0) {
+		indices.push_back(0);
+		return indices;
+	}
 
 	while (prev1 < size) {
 		indices.push_back(prev1 * 2);

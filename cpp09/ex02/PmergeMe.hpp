@@ -73,7 +73,7 @@ void	insertGroupElements(Container& mainChain, Container& largeElements, Contain
 		}
 
 		typename Container::iterator pairPos = std::find(
-			mainChain.begin(), mainChain.end(), largeElements[j - 1]
+			mainChain.begin(), mainChain.end(), largeElements[j]
 		);
 		#ifdef DEBUG
 			std::cout << "mainChain: ";
@@ -81,15 +81,28 @@ void	insertGroupElements(Container& mainChain, Container& largeElements, Contain
 				std::cout << *it << " ";
 			}
 			std::cout << std::endl;
-			std::cout << "pairPos - 1: " << *(pairPos - 1) << std::endl;
-			std::cout << "smallElements[j - 1]: " << smallElements[j - 1] << std::endl;
+			std::cout << "pairPos: " << *(pairPos) << std::endl;
+			std::cout << "smallElements[j]: " << smallElements[j] << std::endl;
 		#endif
 
+		//std::cout << "pairPos: " << *(pairPos) << std::endl;
+		//std::cout << "smallElements[j]: " << smallElements[j] << std::endl;
+		if (pairPos == mainChain.end()) {
+			typename Container::iterator insertPos = std::lower_bound(
+				mainChain.begin(), mainChain.end(), smallElements[j], ComparisonCounter(cnt)
+			);
+			mainChain.insert(insertPos, smallElements[j]);
+			std::cout << "After insert cnt: " << cnt << std::endl;
+			continue;
+		}
+
 		typename Container::iterator insertPos = std::lower_bound(
-			mainChain.begin(), pairPos -1 , smallElements[j - 1], ComparisonCounter(cnt)
+			mainChain.begin(), pairPos - 1 , smallElements[j], ComparisonCounter(cnt)
 		);
 
-		mainChain.insert(insertPos, smallElements[j - 1]);
+		std::cout << "After lower_bound cnt: " << cnt << std::endl;
+
+		mainChain.insert(insertPos, smallElements[j]);
 	}
 }
 
@@ -113,15 +126,12 @@ void	mergeInsertSort(Container& container) {
 		insertFirstElement(mainChain, smallElements[0]);
 	}
 
-	std::vector<size_t> jacobsthalIndices = generateJacobsthalIndices(smallElements.size());
+	std::vector<size_t> jacobsthalIndices = generateJacobsthalIndices(smallElements.size() - 1);
 
-	for (size_t i = 0; i < jacobsthalIndices.size(); ++i) {
+	for (size_t i = 0; i < jacobsthalIndices.size() -1 ; ++i) {
 		size_t start = 0;
 		for (size_t k = 0; k < i; ++k) {
 			start += jacobsthalIndices[k];
-		}
-		if (start == 0) {
-			start = 1;
 		}
 
 		size_t end = 0;
@@ -133,6 +143,11 @@ void	mergeInsertSort(Container& container) {
 			std::cout << "start: " << start << ", end: " << end << std::endl;
 			std::cout << "small elements: ";
 			for (typename Container::const_iterator it = smallElements.begin(); it != smallElements.end(); ++it) {
+				std::cout << *it << " ";
+			}
+			std::cout << std::endl;
+			std::cout << "main chain: ";
+			for (typename Container::const_iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
 				std::cout << *it << " ";
 			}
 			std::cout << std::endl;
