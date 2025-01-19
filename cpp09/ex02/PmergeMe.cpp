@@ -85,10 +85,6 @@ std::vector<size_t> generateJacobsthalIndices(size_t size) {
 	std::vector<size_t> indices;
 	size_t prev2 = 0, prev1 = 1;
 
-	#ifdef DEBUG
-		std::cout << "size: " << size << std::endl;
-	#endif
-
 	if (size == 0) {
 		indices.push_back(0);
 		return indices;
@@ -101,12 +97,5 @@ std::vector<size_t> generateJacobsthalIndices(size_t size) {
 		prev1 = next;
 	}
 
-	#ifdef DEBUG
-		std::cout << "indices: ";
-		for (size_t i = 0; i < indices.size(); i++) {
-			std::cout << indices[i] << " ";
-		}
-		std::cout << std::endl;
-	#endif
 	return indices;
 }

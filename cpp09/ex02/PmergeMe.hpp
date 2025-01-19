@@ -35,9 +35,6 @@ void	createSortedPairs(const Container& input, Container& largeElements, Contain
 			++cnt;
 		}
 	}
-	#ifdef DEBUG
-		std::cout << "After createSortedPairs cnt: " << cnt << std::endl;
-	#endif
 
 	if (input.size() % 2 != 0) {
 		smallElements.push_back(input[input.size() - 1]);
@@ -72,9 +69,21 @@ void	insertGroupElements(Container& mainChain, Container& largeElements, Contain
 			continue;
 		}
 
+		#ifdef DEBUG
+			std::cout << "j: " << j << ", largeElements.size(): " << largeElements.size() << std::endl;
+		#endif
+
+		if (j >= largeElements.size()) {
+			typename Container::iterator insertPos = std::lower_bound(
+				mainChain.begin(), mainChain.end(), smallElements[j], ComparisonCounter(cnt)
+			);
+			mainChain.insert(insertPos, smallElements[j]);
+			continue;
+		}
 		typename Container::iterator pairPos = std::find(
 			mainChain.begin(), mainChain.end(), largeElements[j]
 		);
+
 		#ifdef DEBUG
 			std::cout << "mainChain: ";
 			for (typename Container::const_iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
@@ -85,22 +94,17 @@ void	insertGroupElements(Container& mainChain, Container& largeElements, Contain
 			std::cout << "smallElements[j]: " << smallElements[j] << std::endl;
 		#endif
 
-		//std::cout << "pairPos: " << *(pairPos) << std::endl;
-		//std::cout << "smallElements[j]: " << smallElements[j] << std::endl;
 		if (pairPos == mainChain.end()) {
 			typename Container::iterator insertPos = std::lower_bound(
 				mainChain.begin(), mainChain.end(), smallElements[j], ComparisonCounter(cnt)
 			);
 			mainChain.insert(insertPos, smallElements[j]);
-			std::cout << "After insert cnt: " << cnt << std::endl;
 			continue;
 		}
 
 		typename Container::iterator insertPos = std::lower_bound(
 			mainChain.begin(), pairPos - 1 , smallElements[j], ComparisonCounter(cnt)
 		);
-
-		std::cout << "After lower_bound cnt: " << cnt << std::endl;
 
 		mainChain.insert(insertPos, smallElements[j]);
 	}
@@ -129,25 +133,17 @@ void	mergeInsertSort(Container& container) {
 	std::vector<size_t> jacobsthalIndices = generateJacobsthalIndices(smallElements.size() - 1);
 
 	for (size_t i = 0; i < jacobsthalIndices.size() -1 ; ++i) {
-		size_t start = 0;
+		size_t start = 0, end = 0;
 		for (size_t k = 0; k < i; ++k) {
 			start += jacobsthalIndices[k];
 		}
-
-		size_t end = 0;
 		for (size_t k = 0; k <= i; ++k) {
 			end += jacobsthalIndices[k];
 		}
 
 		#ifdef DEBUG
-			std::cout << "start: " << start << ", end: " << end << std::endl;
 			std::cout << "small elements: ";
 			for (typename Container::const_iterator it = smallElements.begin(); it != smallElements.end(); ++it) {
-				std::cout << *it << " ";
-			}
-			std::cout << std::endl;
-			std::cout << "main chain: ";
-			for (typename Container::const_iterator it = mainChain.begin(); it != mainChain.end(); ++it) {
 				std::cout << *it << " ";
 			}
 			std::cout << std::endl;
