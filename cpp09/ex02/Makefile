@@ -39,7 +39,7 @@ fclean: clean
 
 re: fclean all
 
-debug: fclean
+debug:
 	@make DEBUG=1
 
 .PHONY: all clean fclean re debug

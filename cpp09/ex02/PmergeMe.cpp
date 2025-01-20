@@ -80,7 +80,6 @@ void	PmergeMe::printContainers() {
 	std::cout << "Time to process a range of " << this->_deque.size() << " elements with std::deque : " << time_deque << " us" << std::endl;
 }
 
-
 std::vector<size_t> generateJacobsthalIndices(size_t size) {
 	std::vector<size_t> indices;
 	size_t prev2 = 0, prev1 = 1;
