@@ -1,13 +1,23 @@
 #include "BitcoinExchange.hpp"
 
+long	ft_strtol(const std::string& str) {
+	std::stringstream ss(str);
+	long	num;
+	ss >> num;
+	if (ss.fail()) {
+		return 0;
+	}
+	return num;
+} 
+
 bool	is_valid_date(const std::string& date) {
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-') {
 		return false;
 	}
 
-	int	year = std::strtol(date.substr(0, 4).c_str(), NULL, 10);
-	int	month = std::strtol(date.substr(5, 2).c_str(), NULL, 10);
-	int	day = std::strtol(date.substr(8, 2).c_str(), NULL, 10);
+	int	year = ft_strtol(date.substr(0, 4));
+	int	month = ft_strtol(date.substr(5, 2));
+	int	day = ft_strtol(date.substr(8, 2));
 
 	if (year <= 0 || month < 1 || month > 12 || day < 1 || day > 31) {
 		return false;
