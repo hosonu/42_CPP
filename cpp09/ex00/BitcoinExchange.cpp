@@ -3,12 +3,13 @@
 long	ft_strtol(const std::string& str) {
 	std::stringstream ss(str);
 	long	num;
+
 	ss >> num;
 	if (ss.fail()) {
 		return 0;
 	}
 	return num;
-} 
+}
 
 bool	is_valid_date(const std::string& date) {
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-') {
@@ -46,7 +47,7 @@ std::string	BitcoinExchange::calculate_value_base_in_csv_data(const std::string&
 		return "Error: bad input => " + line;
 	}
 
-	date = date.substr(0, date.find_last_not_of(" \t"));
+	date = date.substr(0, date.find_last_not_of(" \t") + 1);
 
 	if (value < 0) {
 		return "Error: not a positive number.";
