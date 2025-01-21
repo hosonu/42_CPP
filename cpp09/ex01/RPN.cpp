@@ -27,7 +27,7 @@ void	RPN::execute(const std::string &expression) {
 
 	while (ss >> token) {
 		if (isdigit(token[0])) {
-			int num = std::strtoll(token.c_str(), NULL, 10);
+			long num = ft_strtol(token);
 			if (num < 0 || num > 9) {
 				throw std::runtime_error("Error: invalid number");
 			}
@@ -36,24 +36,44 @@ void	RPN::execute(const std::string &expression) {
 			if (this->_stack.size() < 2) {
 				throw std::runtime_error("Error: not enough operands");
 			}
-			int second = this->_stack.top();
+			long second = this->_stack.top();
 			this->_stack.pop();
-			int first = this->_stack.top();
+			long first = this->_stack.top();
 			this->_stack.pop();
 
 			switch (token[0]) {
 				case '+':
+					if (first > INT_MAX - second) {
+						throw std::runtime_error("Error: integer overflow");
+					} else if (first < INT_MIN - second) {
+						throw std::runtime_error("Error: integer underflow");
+					}
 					this->_stack.push(first + second);
 					break;
 				case '-':
+					if (first < INT_MIN + second) {
+						throw std::runtime_error("Error: integer underflow");
+					} else if (first > INT_MAX + second) {
+						throw std::runtime_error("Error: integer overflow");
+					}
 					this->_stack.push(first - second);
 					break;
 				case '*':
+					if (first > INT_MAX / second) {
+						throw std::runtime_error("Error: integer overflow");
+					} else if (first < INT_MIN / second) {
+						throw std::runtime_error("Error: integer underflow");
+					}
 					this->_stack.push(first * second);
 					break;
 				case '/':
 					if (second == 0) {
 						throw std::runtime_error("Error: division by zero");
+					}
+					if (first > INT_MAX / second) {
+						throw std::runtime_error("Error: integer overflow");
+					} else if (first < INT_MIN / second) {
+						throw std::runtime_error("Error: integer underflow");
 					}
 					this->_stack.push(first / second);
 					break;
@@ -71,3 +91,13 @@ void	RPN::execute(const std::string &expression) {
 
 	std::cout << this->_stack.top() << std::endl;
 }
+
+long	ft_strtol(const std::string& str) {
+	std::stringstream ss(str);
+	long	num;
+	ss >> num;
+	if (ss.fail()) {
+		return 0;
+	}
+	return num;
+} 

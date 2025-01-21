@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 #include <exception>
-#include <cstdlib>
+#include <climits>
 
 class RPN {
 	private:
@@ -19,5 +19,7 @@ class RPN {
 		RPN &operator=(const RPN &other);
 		void	execute(const std::string &expression);
 };
+
+long	ft_strtol(const std::string& str);
 
 #endif
