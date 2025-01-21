@@ -27,8 +27,13 @@ PmergeMe::PmergeMe(int argc, char **argv)
 		if (!is_number(argv[i])) {
 			throw std::runtime_error("Error: invalid number");
 		}
-		this->_vector.push_back(std::strtoll(argv[i], NULL, 10));
-		this->_deque.push_back(std::strtoll(argv[i], NULL, 10));
+
+		long long	num = ft_strtol(argv[i]);
+		if (num < 0 || num > INT_MAX) {
+			throw std::runtime_error("Error: number out of range");
+		}
+		this->_vector.push_back(static_cast<int>(num));
+		this->_deque.push_back(static_cast<int>(num));
 	}
 
 	std::cout << "Before: ";
@@ -84,6 +89,10 @@ std::vector<size_t> generateJacobsthalIndices(size_t size) {
 	std::vector<size_t> indices;
 	size_t prev2 = 0, prev1 = 1;
 
+	#ifdef DEBUG
+		std::cout << "Small elements size: " << size << std::endl;
+	#endif
+
 	if (size == 0) {
 		indices.push_back(0);
 		return indices;
@@ -95,6 +104,22 @@ std::vector<size_t> generateJacobsthalIndices(size_t size) {
 		prev2 = prev1;
 		prev1 = next;
 	}
+	if (indices.empty()) {
+		indices.push_back(0);
+	}
 
+	#ifdef DEBUG
+		std::cout << "indices size: " << indices.size() << std::endl;
+	#endif
 	return indices;
 }
+
+long	ft_strtol(const std::string& str) {
+	std::stringstream ss(str);
+	long	num;
+	ss >> num;
+	if (ss.fail()) {
+		return 0;
+	}
+	return num;
+} 

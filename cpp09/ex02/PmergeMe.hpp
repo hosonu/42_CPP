@@ -5,7 +5,7 @@
 #include <deque>
 #include <iostream>
 #include <sstream>
-#include <cstdlib>
+#include <climits>
 #include <ctime>
 #include <algorithm>
 
@@ -65,7 +65,7 @@ void insertFirstElement(Container& mainChain, const typename Container::value_ty
 template <typename Container>
 void	insertGroupElements(Container& mainChain, Container& largeElements, Container& smallElements, size_t start, size_t end) {
 	for (size_t j = end; j > start; --j) {
-		if (j - 1 >= smallElements.size()) {
+		if (j >= smallElements.size()) {
 			continue;
 		}
 
@@ -103,9 +103,8 @@ void	insertGroupElements(Container& mainChain, Container& largeElements, Contain
 		}
 
 		typename Container::iterator insertPos = std::lower_bound(
-			mainChain.begin(), pairPos - 1 , smallElements[j], ComparisonCounter(cnt)
+			mainChain.begin(), pairPos, smallElements[j], ComparisonCounter(cnt)
 		);
-
 		mainChain.insert(insertPos, smallElements[j]);
 	}
 }
@@ -130,9 +129,8 @@ void	mergeInsertSort(Container& container) {
 		insertFirstElement(mainChain, smallElements[0]);
 	}
 
-	std::vector<size_t> jacobsthalIndices = generateJacobsthalIndices(smallElements.size() - 1);
-
-	for (size_t i = 0; i < jacobsthalIndices.size() -1 ; ++i) {
+	std::vector<size_t> jacobsthalIndices = generateJacobsthalIndices(smallElements.size());
+	for (size_t i = 0; i < jacobsthalIndices.size() - 1 ; ++i) {
 		size_t start = 0, end = 0;
 		for (size_t k = 0; k < i; ++k) {
 			start += jacobsthalIndices[k];
@@ -147,6 +145,7 @@ void	mergeInsertSort(Container& container) {
 				std::cout << *it << " ";
 			}
 			std::cout << std::endl;
+			std::cout << "start: " << start << ", end: " << end << std::endl;
 		#endif
 
 		insertGroupElements(mainChain, largeElements, smallElements, start, end);
@@ -183,5 +182,6 @@ class PmergeMe {
 		void	printContainers();
 };
 
+long	ft_strtol(const std::string& str);
 
 #endif

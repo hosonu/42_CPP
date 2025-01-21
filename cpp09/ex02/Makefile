@@ -1,6 +1,6 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-DEBUGFLAGS = -D DEBUG
+DEBUGFLAGS = -D DEBUG -g -fsanitize=address
 
 NAME = PmergeMe
 

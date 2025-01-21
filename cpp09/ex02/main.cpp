@@ -8,7 +8,7 @@ int	main(int argc, char **argv) {
 		pmergeMe.mergeInsertSortVector();
 		pmergeMe.mergeInsertSortDeque();
 		pmergeMe.printContainers();
-		//std::cout << "Number of comparisons: " << cnt << std::endl;
+		std::cout << "Number of comparisons: " << cnt << std::endl;
 	} catch (const std::exception &e) {
 		std::cerr << e.what() << std::endl;
 		return 1;
