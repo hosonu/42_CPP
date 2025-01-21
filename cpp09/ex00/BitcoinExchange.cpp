@@ -115,9 +115,20 @@ const std::map<std::string, float>& BitcoinExchange::get_csv_file_data() const {
 }
 
 BitcoinExchange::BitcoinExchange() : input_file_path("") ,  csv_file_data() {
-	Validater::validate_csv_data("./cpp_09/data.csv");
 	std::ifstream csv_file("./cpp_09/data.csv");
 	std::string line;
+	if (!csv_file.is_open()) {
+		throw std::invalid_argument("Error: could not open file.");
+	}
+
+	std::string header;
+	if (!std::getline(csv_file, header)) {
+		throw std::invalid_argument("Error: could not read header from csv file");
+	}
+	if (header != "date,exchange_rate") {
+		throw std::invalid_argument("Error: invalid header in csv file");
+	}
+
 	while (std::getline(csv_file, line)) {
 		std::stringstream	ss(line);
 		std::string			date;
@@ -125,9 +136,6 @@ BitcoinExchange::BitcoinExchange() : input_file_path("") ,  csv_file_data() {
 
 		std::getline(ss, date, ',');
 		ss >> value;
-		if (date == "date") {
-			continue;
-		}
 		this->csv_file_data[date] = value;
 	}
 	csv_file.close();

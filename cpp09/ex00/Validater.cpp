@@ -22,17 +22,7 @@ void Validater::validate_argument(int argc, char *argv[]) {
 
 void Validater::validate_csv_data(const std::string path) {
 	std::ifstream file(path.c_str());
-	if (!file.is_open()) {
-		throw std::invalid_argument("Error: could not open file.");
-	}
-
-	std::string header;
-	if (!std::getline(file, header)) {
-		throw std::invalid_argument("Error: could not read header from csv file");
-	}
-	if (header != "date,exchange_rate") {
-		throw std::invalid_argument("Error: invalid header in csv file");
-	}
+	
 
 	file.close();
 }
