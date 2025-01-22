@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/easyfind_test.dir/test_easyfind.cpp.o -o easyfind_test  lib/libgtest_main.a lib/libgtest.a 

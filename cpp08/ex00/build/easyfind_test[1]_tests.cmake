@@ -1,7 +1,0 @@
-add_test( EasyFindTest.VectorTest /home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build/easyfind_test [==[--gtest_filter=EasyFindTest.VectorTest]==] --gtest_also_run_disabled_tests)
-set_tests_properties( EasyFindTest.VectorTest PROPERTIES WORKING_DIRECTORY /home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test( EasyFindTest.ListTest /home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build/easyfind_test [==[--gtest_filter=EasyFindTest.ListTest]==] --gtest_also_run_disabled_tests)
-set_tests_properties( EasyFindTest.ListTest PROPERTIES WORKING_DIRECTORY /home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test( EasyFindTest.EmptyContainerTest /home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build/easyfind_test [==[--gtest_filter=EasyFindTest.EmptyContainerTest]==] --gtest_also_run_disabled_tests)
-set_tests_properties( EasyFindTest.EmptyContainerTest PROPERTIES WORKING_DIRECTORY /home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set( easyfind_test_TESTS EasyFindTest.VectorTest EasyFindTest.ListTest EasyFindTest.EmptyContainerTest)
