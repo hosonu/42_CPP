@@ -1,0 +1,5 @@
+if(EXISTS "/home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build/easyfind_test[1]_tests.cmake")
+  include("/home/hosonu/42tokyo_prd/second_prd/CPP/cpp08/ex00/build/easyfind_test[1]_tests.cmake")
+else()
+  add_test(easyfind_test_NOT_BUILT easyfind_test_NOT_BUILT)
+endif()

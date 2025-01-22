@@ -35,6 +35,8 @@ PmergeMe::PmergeMe(int argc, char **argv)
 		this->_vector.push_back(static_cast<int>(num));
 		this->_deque.push_back(static_cast<int>(num));
 	}
+	
+	std::srand(std::time(NULL));
 
 	std::cout << "Before: ";
 	for (int i = 1; i < argc; i++) {
