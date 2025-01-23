@@ -97,7 +97,7 @@ long	ft_strtol(const std::string& str) {
 	long	num;
 	ss >> num;
 	if (ss.fail()) {
-		return 0;
+		throw std::runtime_error("Error: invalid number");
 	}
 	return num;
 } 
